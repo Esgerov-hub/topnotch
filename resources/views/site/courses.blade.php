@@ -115,14 +115,14 @@
                             @php
                                 $courseTitle = data_get($course, "name.$currentLang") ?? data_get($course, 'name.az');
                                 $courseText = data_get($course, "text.$currentLang") ?? data_get($course, 'text.az');
-                                $courseSlug = data_get($course, "slug.$currentLang") ?? data_get($course, 'slug.az');
+                                $courseSlug = data_get($course, "slug.$currentLang") ?: data_get($course, 'slug.az') ?: 'course';
                                 $teacherName = data_get($course, "teacher.name.$currentLang") ?? data_get($course, 'teacher.name.az');
                                 $categoryName = data_get($course, "courseCategory.title.$currentLang") ?? data_get($course, 'courseCategory.title.az');
                             @endphp
                             <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-6">
                                 <div class="education_block_grid border">
                                     <div class="education-thumb position-relative">
-                                        <a href="{{ route('site.courses-details', $course->id) }}">
+                                        <a href="{{ route('site.courses-details', ['courseSlug' => $courseSlug, 'courseId' => $course->id]) }}">
                                             <img src="{{ !empty($course->image) ? asset('uploads/languageCourses/' . $course->image) : asset('site/assets/img/co-1.jpg') }}" class="img-fluid w-100" alt="{{ $courseTitle }}" style="aspect-ratio: 16 / 10; object-fit: contain;">
                                         </a>
                                     </div>
@@ -139,7 +139,7 @@
                                         </div>
                                         <div class="education-title">
                                             <h4 class="fs-6 fw-medium mb-2">
-                                                <a href="{{ route('site.courses-details', $course->id) }}">{{ $courseTitle }}</a>
+                                                <a href="{{ route('site.courses-details', ['courseSlug' => $courseSlug, 'courseId' => $course->id]) }}">{{ $courseTitle }}</a>
                                             </h4>
                                         </div>
                                         @if($courseText)
@@ -148,7 +148,7 @@
                                     </div>
                                     <div class="education-footer p-3">
                                         <div class="enrolled-link">
-                                            <a href="{{ route('site.courses-details', $course->id) }}" class="main-link fw-medium">@lang('site.read_more')<i class="bi bi-arrow-right ms-2"></i></a>
+                                            <a href="{{ route('site.courses-details', ['courseSlug' => $courseSlug, 'courseId' => $course->id]) }}" class="main-link fw-medium">@lang('site.read_more')<i class="bi bi-arrow-right ms-2"></i></a>
                                         </div>
                                     </div>
                                 </div>

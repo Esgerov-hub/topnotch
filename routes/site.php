@@ -27,7 +27,7 @@ try {
         Route::get('/schools', 'HomeController@schools')->name('schools');
         Route::get('/schools-details/{categorySlug?}/{countrySlug?}/{schoolSlug?}', 'HomeController@schoolDetails')->name('schools-details');
         Route::get('/courses', 'HomeController@courses')->name('courses');
-        Route::get('/courses-details/{courseSlug?}', 'HomeController@coursesDetails')->name('courses-details');
+        Route::get('/courses-details/{courseSlug?}/{courseId?}', 'HomeController@coursesDetails')->name('courses-details');
         Route::get('/blogs', 'HomeController@blogs')->name('blogs');
         Route::get('/blog-detail/{categorySlug?}/{newsSlug?}', 'HomeController@blogDetail')->name('blogDetail');
         Route::get('/contact', 'HomeController@contact')->name('contact');

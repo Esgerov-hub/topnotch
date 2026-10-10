@@ -241,18 +241,20 @@ class HomeController extends Controller
     }
 
 
-    public function coursesDetails($courseSlug = null)
+    public function coursesDetails($courseSlug = null, $courseId = null)
     {
         $currentLang = $this->currentLang;
         $courseQuery = LanguageCourse::with(['courseCategory', 'language', 'parentLanguage', 'teacher'])
             ->where('status', 1);
 
-        if ($courseSlug) {
-            if (ctype_digit((string) $courseSlug)) {
-                $courseQuery->whereKey((int) $courseSlug);
-            } else {
-                $courseQuery->where("slug->{$currentLang}", $courseSlug);
-            }
+        if ($courseId && ctype_digit((string) $courseId)) {
+            $courseQuery->whereKey((int) $courseId);
+        } elseif ($courseSlug && ctype_digit((string) $courseSlug)) {
+            // Keep previous numeric detail URLs working.
+            $courseQuery->whereKey((int) $courseSlug);
+        } elseif ($courseSlug) {
+            // Keep legacy slug-only URLs working.
+            $courseQuery->where("slug->{$currentLang}", $courseSlug);
         }
 
         $course = $courseQuery->first();

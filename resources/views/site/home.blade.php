@@ -250,13 +250,13 @@
                             @php
                                 $courseTitle = data_get($course, "name.$currentLang") ?? data_get($course, 'name.az');
                                 $courseText = data_get($course, "text.$currentLang") ?? data_get($course, 'text.az');
-                                $courseSlug = data_get($course, "slug.$currentLang") ?? data_get($course, 'slug.az');
+                                $courseSlug = data_get($course, "slug.$currentLang") ?: data_get($course, 'slug.az') ?: 'course';
                                 $courseCategory = data_get($course, "courseCategory.title.$currentLang") ?? data_get($course, 'courseCategory.title.az');
                             @endphp
                             <div class="singles_items">
                                 <div class="education_block_grid border">
                                     <div class="education-thumb position-relative">
-                                        <a href="{{ route('site.courses-details', $course->id) }}">
+                                        <a href="{{ route('site.courses-details', ['courseSlug' => $courseSlug, 'courseId' => $course->id]) }}">
                                             <img src="{{ !empty($course->image) ? asset('uploads/languageCourses/' . $course->image) : asset('site/assets/img/co-1.jpg') }}" class="img-fluid home-slide-image" alt="{{ $courseTitle }}" onerror="this.onerror=null;this.src='{{ asset('site/assets/img/co-1.jpg') }}';">
                                         </a>
                                     </div>
@@ -271,7 +271,7 @@
                                         </div>
                                         <div class="education-title">
                                             <h4 class="fs-6 fw-medium">
-                                                <a href="{{ route('site.courses-details', $course->id) }}">{{ $courseTitle }}</a>
+                                                <a href="{{ route('site.courses-details', ['courseSlug' => $courseSlug, 'courseId' => $course->id]) }}">{{ $courseTitle }}</a>
                                             </h4>
                                         </div>
                                         @if($courseText)
@@ -279,7 +279,7 @@
                                         @endif
                                     </div>
                                     <div class="education-footer p-3">
-                                        <a href="{{ route('site.courses-details', $course->id) }}" class="main-link fw-medium">@lang('site.read_more')<i class="bi bi-arrow-right ms-2"></i></a>
+                                        <a href="{{ route('site.courses-details', ['courseSlug' => $courseSlug, 'courseId' => $course->id]) }}" class="main-link fw-medium">@lang('site.read_more')<i class="bi bi-arrow-right ms-2"></i></a>
                                     </div>
                                 </div>
                             </div>
