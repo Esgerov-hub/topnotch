@@ -143,7 +143,7 @@
                                         <img src="{{ !empty($related->image) ? asset('uploads/languageCourses/'.$related->image) : asset('site/assets/img/co-1.jpg') }}" class="img-fluid w-100" alt="{{ $relatedTitle }}" style="aspect-ratio: 16 / 10; object-fit: contain;">
                                     </a>
                                 </div>
-                                <div class="education-body p-3 flex-grow-1">
+                                <div class="education-body p-3">
                                     <div class="d-flex flex-wrap gap-2 mb-2">
                                         @if($relatedTeacherName)
                                             <span class="badge bg-light text-dark rounded-pill">{{ $relatedTeacherName }}</span>
