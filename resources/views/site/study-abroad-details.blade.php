@@ -52,7 +52,7 @@
                                 class="pro_img img-fluid w-100 rounded-3"
                                 src="{{ !empty($studyAbroad->image) ? asset('uploads/studyAbroads/' . $studyAbroad->image) : asset('site/assets/img/co-5.jpg') }}"
                                 alt="{{ $title }}"
-                                style="aspect-ratio: 4 / 3; object-fit: cover;"
+                                style="aspect-ratio: 4 / 3; object-fit: contain;"
                             >
                         </div>
                     </div>
