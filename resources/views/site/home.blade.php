@@ -363,7 +363,7 @@
                             @php
                                 $commitName = data_get($commit, "name.$currentLang") ?? data_get($commit, 'name.az');
                                 $commitDesc = data_get($commit, "description.$currentLang") ?? data_get($commit, 'description.az');
-                                $commitImage = !empty($commit->image) ? asset('uploads/commits/' . $commit->image) : asset('site/assets/img/user-1.jpg');
+                                $commitImage = !empty($commit->image) ? asset('uploads/commits/' . $commit->image) : null;
                                 $commitDate = !empty($commit->datetime) ? \Carbon\Carbon::parse($commit->datetime)->translatedFormat('d M Y') : (!empty($commit->created_at) ? $commit->created_at->translatedFormat('d M Y') : '');
                             @endphp
 
@@ -380,7 +380,15 @@
                                     </div>
                                     <div class="d-flex bg-light align-items-center justify-content-between rounded-3 p-3">
                                         <div class="revierwer-avatar d-flex align-items-center gap-2">
-                                            <div class="avatar-box"><img src="{{ $commitImage }}" class="img-fluid square--50 circle" alt="{{ $commitName ?? $siteTitle }}" onerror="this.onerror=null;this.src='{{ asset('site/assets/img/user-1.jpg') }}';"></div>
+                                            <div class="avatar-box">
+                                                @if($commitImage)
+                                                    <img src="{{ $commitImage }}" class="img-fluid square--50 circle" alt="{{ $commitName ?? $siteTitle }}" onerror="this.onerror=null;this.src='{{ asset('site/assets/img/user-1.jpg') }}';">
+                                                @else
+                                                    <span class="square--50 circle d-inline-flex align-items-center justify-content-center bg-light-primary text-primary" role="img" aria-label="{{ $commitName ?? $siteTitle }}">
+                                                        <i class="bi bi-person-fill fs-4" aria-hidden="true"></i>
+                                                    </span>
+                                                @endif
+                                            </div>
                                             <div class="reviewer-caps">
                                                 <h6 class="fw-semibold text-dark m-0">{{ $commitName ?? $siteTitle }}</h6>
                                                 <p class="text-muted-2 m-0 text-mid">{{ $commitDate }}</p>
