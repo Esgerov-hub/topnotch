@@ -7988,3 +7988,65 @@ ul.edu_list li {
     object-fit: contain;
     background-color: #f4f6f8;
 }
+
+
+/* Homepage featured course cards: consistent image, body, and footer alignment. */
+.home-featured-courses-section {
+    padding-top: 2.5rem !important;
+    padding-bottom: 2.5rem !important;
+}
+.home-featured-courses-section .sec-heading {
+    margin-bottom: 1.25rem;
+}
+.home-featured-courses .slick-track {
+    display: flex !important;
+    align-items: stretch;
+}
+.home-featured-courses .slick-slide {
+    height: auto;
+}
+.home-featured-courses .slick-slide > div,
+.home-featured-courses .singles_items {
+    height: 100%;
+}
+.home-featured-courses .singles_items {
+    display: flex;
+    padding: 0 8px 10px;
+}
+.home-featured-courses .education_block_grid {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.home-featured-courses .education-thumb {
+    height: 220px;
+    flex: 0 0 220px;
+}
+.home-featured-courses .education-thumb > a {
+    height: 100%;
+    overflow: hidden;
+}
+.home-featured-courses .education-thumb .home-slide-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.home-featured-courses .education-body {
+    flex: 1 1 auto;
+}
+.home-featured-courses .education-title {
+    min-height: 3rem;
+}
+.home-featured-courses .education-title h4 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    line-height: 1.5;
+}
+.home-featured-courses .education-body > p {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+}
