@@ -164,7 +164,7 @@
                                                 src="{{ !empty($school->image) ? asset('uploads/schools/' . $school->image) : asset('site/assets/img/co-1.jpg') }}"
                                                 class="img-fluid w-100"
                                                 alt="{{ $schoolTitle }}"
-                                                style="aspect-ratio: 16 / 10; object-fit: cover;"
+                                                style="aspect-ratio: 16 / 10; object-fit: contain;"
                                             >
                                         </a>
                                     </div>
