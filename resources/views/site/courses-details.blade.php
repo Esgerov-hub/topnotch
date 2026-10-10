@@ -109,14 +109,14 @@
                         <div class="col-lg-4 col-md-6">
                             <div class="education_block_grid border h-100">
                                 <div class="education-thumb position-relative">
-                                    <a href="{{ route('site.courses-details', $relatedCourseSlug) }}">
+                                    <a href="{{ route('site.courses-details', $related->id) }}">
                                         <img src="{{ !empty($related->image) ? asset('uploads/languageCourses/'.$related->image) : asset('site/assets/img/co-1.jpg') }}" class="img-fluid w-100" alt="{{ $relatedTitle }}" style="aspect-ratio: 16 / 10; object-fit: contain;">
                                     </a>
                                 </div>
                                 <div class="education-body p-3">
                                     <div class="education-title">
                                         <h4 class="fs-6 fw-medium mb-0">
-                                            <a href="{{ route('site.courses-details', $relatedCourseSlug) }}">{{ $relatedTitle }}</a>
+                                            <a href="{{ route('site.courses-details', $related->id) }}">{{ $relatedTitle }}</a>
                                         </h4>
                                     </div>
                                 </div>
