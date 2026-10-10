@@ -110,7 +110,7 @@
                             <div class="education_block_grid border h-100">
                                 <div class="education-thumb position-relative">
                                     <a href="{{ route('site.courses-details', $relatedCourseSlug) }}">
-                                        <img src="{{ !empty($related->image) ? asset('uploads/languageCourses/'.$related->image) : asset('site/assets/img/co-1.jpg') }}" class="img-fluid w-100" alt="{{ $relatedTitle }}" style="aspect-ratio: 16 / 10; object-fit: cover;">
+                                        <img src="{{ !empty($related->image) ? asset('uploads/languageCourses/'.$related->image) : asset('site/assets/img/co-1.jpg') }}" class="img-fluid w-100" alt="{{ $relatedTitle }}" style="aspect-ratio: 16 / 10; object-fit: contain;">
                                     </a>
                                 </div>
                                 <div class="education-body p-3">
