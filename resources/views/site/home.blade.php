@@ -232,7 +232,7 @@
         </div>
     </section>
 
-    <section class="bg-light py-5">
+    <section class="bg-light py-5 home-featured-courses-section">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-8 col-md-10 col-sm-12">
@@ -245,7 +245,7 @@
 
             <div class="row">
                 <div class="col-12">
-                    <div class="four_slide articles arrow_middle">
+                    <div class="four_slide articles arrow_middle home-featured-courses">
                         @forelse($featuredCourses as $course)
                             @php
                                 $courseTitle = data_get($course, "name.$currentLang") ?? data_get($course, 'name.az');
