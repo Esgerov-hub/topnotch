@@ -22,11 +22,11 @@
             background: #f3f5f8;
         }
         .course-detail-media .thumb .course-detail-poster {
-            width: 100%;
-            height: 100%;
-            min-height: 0;
-            max-height: none;
-            object-fit: contain;
+            width: 100% !important;
+            height: 100% !important;
+            min-height: 0 !important;
+            max-height: none !important;
+            object-fit: contain !important;
             object-position: center;
         }
         @media (max-width: 767.98px) {
