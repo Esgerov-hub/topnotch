@@ -7972,13 +7972,19 @@ ul.edu_list li {
 
 	}
 }
-
-
-
-
-
-
-
-
-
-
+ 
+/* Display card photos in full and keep the image area consistent. */
+.education-thumb {
+    background-color: #f4f6f8;
+}
+.education-thumb > a {
+    display: block;
+}
+.education-thumb img {
+    object-fit: contain;
+    object-position: center;
+}
+.education-thumb .home-slide-image {
+    object-fit: contain;
+    background-color: #f4f6f8;
+}
