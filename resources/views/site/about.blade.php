@@ -20,6 +20,81 @@
 @endsection
 
 @section('site.css')
+    <style>
+        .about-teachers-slider .slick-track {
+            display: flex !important;
+            align-items: stretch;
+        }
+        .about-teachers-slider .slick-slide {
+            height: auto;
+        }
+        .about-teachers-slider .slick-slide > div,
+        .about-teachers-slider .singles_items {
+            height: 100%;
+        }
+        .about-teachers-slider .singles_items {
+            display: flex;
+            padding: 0 8px 12px;
+        }
+        .about-teachers-slider .about-teacher-card {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            border-color: #e3e9f2 !important;
+            box-shadow: 0 4px 16px rgba(23, 44, 82, 0.06);
+            transition: transform .2s ease, box-shadow .2s ease;
+        }
+        .about-teachers-slider .about-teacher-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 24px rgba(23, 44, 82, 0.12);
+        }
+        .about-teachers-slider .about-teacher-card > div {
+            width: 100%;
+        }
+        .about-teachers-slider .about-teacher-image-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 360px;
+            overflow: hidden;
+            border-radius: 14px;
+            background: linear-gradient(145deg, #eef3ff, #f7f9fd);
+        }
+        .about-teachers-slider .about-teacher-image {
+            width: 100% !important;
+            height: 100% !important;
+            padding: 6px;
+            object-fit: contain;
+            object-position: center;
+        }
+        .about-teachers-slider .teacher-card-content {
+            min-height: 82px;
+            justify-content: center;
+        }
+        .about-teachers-slider .teacher-card-name {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            overflow: hidden;
+            line-height: 1.35;
+        }
+        .about-teachers-slider .teacher-card-position {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 1;
+            overflow: hidden;
+        }
+        @media (max-width: 767.98px) {
+            .about-teachers-slider .about-teacher-image-link {
+                height: 320px;
+            }
+        }
+        @media (max-width: 479.98px) {
+            .about-teachers-slider .about-teacher-image-link {
+                height: 300px;
+            }
+        }
+    </style>
 @endsection
 
 @section('site.content')
@@ -83,7 +158,7 @@
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12">
 
-                        <div class="arrow_slide four_slide arrow_middle">
+                        <div class="arrow_slide four_slide arrow_middle about-teachers-slider">
                             @foreach($teachers as $teacher)
                                 @php
                                     $teacherName = data_get($teacher, "name.$currentLang") ?? data_get($teacher, 'name.az');
@@ -92,26 +167,26 @@
                                 @endphp
 
                                 <div class="singles_items">
-                                    <div class="card rounded-4 border">
+                                    <div class="card rounded-4 border about-teacher-card">
                                         <div class="p-2 d-flex flex-column gap-3">
 
                                             <!--img-->
-                                            <a href="#">
-                                                <img src="{{ !empty($teacher->image) ? asset('uploads/teachers/'.$teacher->image) : asset('site/assets/img/'.$fallbackAvatar) }}" alt="{{ $teacherName }}" class="img-fluid w-100 rounded-4">
+                                            <a href="#" class="about-teacher-image-link">
+                                                <img src="{{ !empty($teacher->image) ? asset('uploads/teachers/'.$teacher->image) : asset('site/assets/img/'.$fallbackAvatar) }}" alt="{{ $teacherName }}" class="img-fluid w-100 rounded-4 about-teacher-image">
                                             </a>
 
                                             <!--content-->
-                                            <div class="d-flex flex-column gap-4">
+                                            <div class="d-flex flex-column gap-2 teacher-card-content">
                                                 <div class="d-flex flex-column gap-2">
                                                     <div class="tutor-head-info">
                                                         <div class="d-flex align-items-center gap-2">
-                                                            <h5 class="mb-0"><a href="#" class="text-reset">{{ $teacherName }}</a></h5>
+                                                            <h5 class="mb-0 teacher-card-name"><a href="#" class="text-reset">{{ $teacherName }}</a></h5>
                                                             <span class="verified-tutor">
 																<i class="bi bi-patch-check-fill text-green"></i>
 															</span>
                                                         </div>
                                                         @if($teacherPosition)
-                                                        <span class="text-muted-2">{{ $teacherPosition }}</span>
+                                                        <span class="text-muted-2 teacher-card-position">{{ $teacherPosition }}</span>
                                                         @endif
                                                     </div>
                                                 </div>
