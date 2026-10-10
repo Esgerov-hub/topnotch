@@ -126,7 +126,7 @@
                                 <div class="education_block_grid border">
                                     <div class="education-thumb position-relative">
                                         <a href="{{ route('site.study-abroad-details', [$countrySlug, $universitySlug, $studySlug]) }}">
-                                            <img src="{{ !empty($studyAbroad->image) ? asset('uploads/studyAbroads/' . $studyAbroad->image) : asset('site/assets/img/co-1.jpg') }}" class="img-fluid w-100" alt="{{ $title }}" style="aspect-ratio: 16 / 10; object-fit: cover;">
+                                            <img src="{{ !empty($studyAbroad->image) ? asset('uploads/studyAbroads/' . $studyAbroad->image) : asset('site/assets/img/co-1.jpg') }}" class="img-fluid w-100" alt="{{ $title }}" style="aspect-ratio: 16 / 10; object-fit: contain;">
                                         </a>
                                     </div>
 
