@@ -122,7 +122,7 @@
             </div>
 
             @if($relatedCourses->count())
-                <div class="row mt-4">
+                <div class="row g-xl-3 g-4 mt-4">
                     <div class="col-12">
                         <div class="sec-heading">
                             <h2>@lang('site.courses_detail_related')</h2>
@@ -136,8 +136,8 @@
                             $relatedTeacherName = data_get($related, "teacher.name.$currentLang") ?? data_get($related, 'teacher.name.az');
                             $relatedCategoryName = data_get($related, "courseCategory.title.$currentLang") ?? data_get($related, 'courseCategory.title.az');
                         @endphp
-                        <div class="col-lg-4 col-md-6 col-12 mb-4">
-                            <div class="education_block_grid border h-100 d-flex flex-column">
+                        <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-6">
+                            <div class="education_block_grid border">
                                 <div class="education-thumb position-relative">
                                     <a href="{{ route('site.courses-details', ['courseSlug' => $relatedCourseSlug, 'courseId' => $related->id]) }}">
                                         <img src="{{ !empty($related->image) ? asset('uploads/languageCourses/'.$related->image) : asset('site/assets/img/co-1.jpg') }}" class="img-fluid w-100" alt="{{ $relatedTitle }}" style="aspect-ratio: 16 / 10; object-fit: contain;">
