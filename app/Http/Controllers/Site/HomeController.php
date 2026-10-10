@@ -248,7 +248,11 @@ class HomeController extends Controller
             ->where('status', 1);
 
         if ($courseSlug) {
-            $courseQuery->where("slug->{$currentLang}", $courseSlug);
+            if (ctype_digit((string) $courseSlug)) {
+                $courseQuery->whereKey((int) $courseSlug);
+            } else {
+                $courseQuery->where("slug->{$currentLang}", $courseSlug);
+            }
         }
 
         $course = $courseQuery->first();
