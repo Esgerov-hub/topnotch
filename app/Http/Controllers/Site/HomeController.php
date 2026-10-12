@@ -228,7 +228,14 @@ class HomeController extends Controller
         }
 
         if ($levelId) {
-            $courseQuery->where('parent_language_id', $levelId);
+            if (ctype_digit((string) $levelId)) {
+                // Keep existing numeric level filter URLs working.
+                $courseQuery->where('parent_language_id', $levelId);
+            } else {
+                $courseQuery->whereHas('parentLanguage', function ($query) use ($currentLang, $levelId) {
+                    $query->where("name->{$currentLang}", $levelId);
+                });
+            }
         }
 
         $courses = $courseQuery->orderByDesc('id')->paginate(12)->withQueryString();
