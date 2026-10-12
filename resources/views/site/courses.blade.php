@@ -83,12 +83,12 @@
                                 </div>
 
                                 <div class="single-side-box card border shadow-sm rounded-3 p-3">
-                                    <label class="form-label fw-medium">@lang('admin.parent_languages')</label>
+                                    <label class="form-label fw-medium">@lang('site.course_level')</label>
                                     <select class="form-select" name="level" id="course-level">
                                         <option value="">@lang('admin.choose')</option>
                                         @foreach($levels as $level)
                                             @php $levelName = data_get($level, "name.$currentLang") ?? data_get($level, 'name.az'); @endphp
-                                            <option value="{{ $level->id }}" data-language-id="{{ $level->parent_id }}" @selected((string)($levelId ?? '') === (string)$level->id)>{{ $levelName }}</option>
+                                            <option value="{{ $levelName }}" data-language-id="{{ $level->parent_id }}" @selected((string)($levelId ?? '') === (string)$level->id || (string)($levelId ?? '') === (string)$levelName)>{{ $levelName }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -193,7 +193,11 @@
                 empty.textContent = @json(__('admin.choose'));
                 levelSelect.appendChild(empty);
 
-                filtered.forEach(item => {
+                const uniqueFiltered = filtered.filter((item, index, items) =>
+                    items.findIndex(candidate => candidate.value === item.value) === index
+                );
+
+                uniqueFiltered.forEach(item => {
                     const option = document.createElement('option');
                     option.value = item.value;
                     option.textContent = item.label;
@@ -201,7 +205,7 @@
                     levelSelect.appendChild(option);
                 });
 
-                if (!filtered.some(item => item.value === selectedLevel)) {
+                if (!uniqueFiltered.some(item => item.value === selectedLevel)) {
                     levelSelect.value = '';
                 }
             }
