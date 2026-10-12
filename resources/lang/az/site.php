@@ -33,6 +33,7 @@
   'university' => 'Universitet',
   'language' => 'Dil',
   'leve' => 'Level',
+  'course_level' => 'Dərəcə',
   'email' => 'E-poçt ünvan',
   'address' => 'Ünvan',
   'phone' => 'Əlaqə nömrəsi',
