@@ -33,6 +33,7 @@
   'university' => 'University',
   'language' => 'Language',
   'leve' => 'Level',
+  'course_level' => 'Level',
   'email' => 'Email Address',
   'address' => 'Address',
   'phone' => 'Phone Number',
