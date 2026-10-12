@@ -30,7 +30,7 @@
             <div class="nav-menus-wrapper">
                 <ul class="nav-menu">
                     <li>
-                        <a href="#">@lang('site.about_us')<span class="submenu-indicator"></span></a>
+                        <a href="#">@lang('site.about_us')</a>
                         <ul class="nav-dropdown nav-submenu">
                             <li><a href="{{ route('site.about') }}">@lang('site.who')</a></li>
                             <li><a href="{{ route('site.blogs') }}">@lang('site.blogs')</a></li>
@@ -38,7 +38,7 @@
                     </li>
 
                     <li>
-                        <a href="#">@lang('site.courses_title')<span class="submenu-indicator"></span></a>
+                        <a href="#">@lang('site.courses_title')</a>
                         <ul class="nav-dropdown nav-submenu">
                             <li><a href="{{ route('site.courses') }}">@lang('site.all_courses')</a></li>
                             @if(!empty($data['courseCategories']))
@@ -51,9 +51,9 @@
                         </ul>
                     </li>
 
-                    <li><a href="{{ route('site.study-abroad') }}">@lang('site.study_abroads')<span class="submenu-indicator"></span></a></li>
-                    <li><a href="{{ route('site.schools') }}">@lang('site.schools')<span class="submenu-indicator"></span></a></li>
-                    <li><a href="{{ route('site.contact') }}">@lang('site.contact_us')<span class="submenu-indicator"></span></a></li>
+                    <li><a href="{{ route('site.study-abroad') }}">@lang('site.study_abroads')</a></li>
+                    <li><a href="{{ route('site.schools') }}">@lang('site.schools')</a></li>
+                    <li><a href="{{ route('site.contact') }}">@lang('site.contact_us')</a></li>
                     <li class="desktop-lang">
                         <div class="btn-group account-drop language-drop">
                             <button type="button" class="btn btn-order-by-filt language-switch-btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
