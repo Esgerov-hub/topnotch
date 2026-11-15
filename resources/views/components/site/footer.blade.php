@@ -91,8 +91,20 @@
                 <div class="col-lg-6 col-md-6 text-md-end">
                     <ul class="footer-bottom-social">
                         @foreach(['instagram' => 'Instagram', 'linkedin' => 'LinkedIn', 'twitter' => 'X', 'youtube' => 'YouTube', 'telegram' => 'Telegram', 'whatsapp' => 'WhatsApp'] as $icon => $label)
-                            @php $url = trim(data_get($setting, $icon) ?? ''); @endphp
-                            @if(filter_var($url, FILTER_VALIDATE_URL) && in_array(parse_url($url, PHP_URL_SCHEME), ['http', 'https'], true))
+                            @php
+                                $url = trim(data_get($setting, $icon) ?? '');
+                                $socialHosts = [
+                                    'instagram' => ['instagram.com'],
+                                    'linkedin' => ['linkedin.com'],
+                                    'twitter' => ['x.com', 'twitter.com'],
+                                    'youtube' => ['youtube.com', 'youtu.be'],
+                                    'telegram' => ['t.me', 'telegram.me'],
+                                    'whatsapp' => ['wa.me', 'whatsapp.com'],
+                                ];
+                                $host = preg_replace('/^www\./', '', strtolower((string) parse_url($url, PHP_URL_HOST)));
+                                $profilePath = trim((string) parse_url($url, PHP_URL_PATH), '/');
+                            @endphp
+                            @if(filter_var($url, FILTER_VALIDATE_URL) && in_array(parse_url($url, PHP_URL_SCHEME), ['http', 'https'], true) && in_array($host, $socialHosts[$icon], true) && $profilePath !== '')
                                 <li><a href="{{ $url }}" aria-label="{{ $label }}"><i class="bi bi-{{ $icon }}" aria-hidden="true"></i></a></li>
                             @endif
                         @endforeach
