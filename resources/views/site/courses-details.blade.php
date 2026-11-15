@@ -75,7 +75,7 @@
                             @endif
                         </div>
                         <div class="ed_header_caption">
-                            <h2 class="ed_title">{{ $courseTitle }}</h2>
+                            <h1 class="ed_title">{{ $courseTitle }}</h1>
                             <ul>
                                 @if($teacherName)
                                     <li><i class="bi bi-people"></i>{{ $teacherName }}</li>
@@ -114,7 +114,7 @@
                                 <li><span class="info-title"><i class="bi bi-translate"></i>@lang('site.language')</span><span class="text-dark right">{{ $languageName }}</span></li>
                             @endif
                             @if($levelName)
-                                <li><span class="info-title"><i class="bi bi-tags"></i>@lang('site.leve')</span><span class="text-dark right">{{ $levelName }}</span></li>
+                                <li><span class="info-title"><i class="bi bi-tags"></i>@lang('site.course_level')</span><span class="text-dark right">{{ $levelName }}</span></li>
                             @endif
                         </ul>
                     </div>

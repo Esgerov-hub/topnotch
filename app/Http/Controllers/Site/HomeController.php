@@ -227,21 +227,22 @@ class HomeController extends Controller
             $courseQuery->where('language_id', $languageId);
         }
 
-        if ($levelId) {
-            if (ctype_digit((string) $levelId)) {
-                // Keep existing numeric level filter URLs working.
+        $levels = Language::whereNotNull('parent_id')->where('status', 1)->orderBy("name->{$currentLang}", 'asc')->get();
+        if (is_string($levelId) && $levelId !== '') {
+            if (ctype_digit($levelId)) {
                 $courseQuery->where('parent_language_id', $levelId);
             } else {
-                $courseQuery->whereHas('parentLanguage', function ($query) use ($currentLang, $levelId) {
-                    $query->where("name->{$currentLang}", $levelId);
+                $matchingLevels = $levels->filter(function ($level) use ($currentLang, $levelId) {
+                    return trim(data_get($level, "name.$currentLang") ?: data_get($level, 'name.az') ?: '') === $levelId;
                 });
+
+                $courseQuery->whereIn('parent_language_id', $matchingLevels->modelKeys());
             }
         }
 
         $courses = $courseQuery->orderByDesc('id')->paginate(12)->withQueryString();
         $courseCategories = CourseCategory::where('status', 1)->orderBy('order_by', 'asc')->orderByDesc('id')->get();
         $mainLanguages = Language::whereNull('parent_id')->where('status', 1)->orderBy("name->{$currentLang}", 'asc')->get();
-        $levels = Language::whereNotNull('parent_id')->where('status', 1)->orderBy("name->{$currentLang}", 'asc')->get();
         $teachers = Teacher::where('status', 1)->get();
 
         return view('site.courses', compact('currentLang', 'courses', 'courseCategories', 'mainLanguages', 'levels', 'teachers', 'search', 'categoryId', 'languageId', 'levelId'));
@@ -316,19 +317,29 @@ class HomeController extends Controller
         return view('site.blogs', compact('currentLang', 'news', 'categories', 'search', 'categoryId'));
     }
 
-    public function blogDetail($categorySlug = null, $newsSlug = null)
+    public function blogDetail($categorySlug = null, $newsSlug = null, $newsId = null)
     {
         $currentLang = $this->currentLang;
         $newsQuery = News::with('category')->where('status', 1);
 
-        if ($newsSlug) {
-            $newsQuery->where("slug->{$currentLang}", $newsSlug);
-        }
+        if ($newsId !== null) {
+            if (!ctype_digit((string) $newsId)) {
+                return $this->notFound();
+            }
 
-        if ($categorySlug) {
-            $newsQuery->whereHas('category', function ($query) use ($currentLang, $categorySlug) {
-                $query->where("slug->{$currentLang}", $categorySlug);
+            $newsQuery->whereKey($newsId);
+        } elseif ($newsSlug) {
+            $newsQuery->where(function ($query) use ($currentLang, $newsSlug) {
+                $query->where("slug->{$currentLang}", $newsSlug)->orWhere('slug->az', $newsSlug);
             });
+
+            if ($categorySlug) {
+                $newsQuery->whereHas('category', function ($query) use ($currentLang, $categorySlug) {
+                    $query->where("slug->{$currentLang}", $categorySlug)->orWhere('slug->az', $categorySlug);
+                });
+            }
+        } else {
+            return redirect()->route('site.blogs');
         }
 
         $news = $newsQuery->first();
@@ -379,8 +390,17 @@ class HomeController extends Controller
             $schoolQuery->where('language_id', $languageId);
         }
 
-        if ($levelId) {
-            $schoolQuery->where('parent_language_id', $levelId);
+        $levels = Language::whereNotNull('parent_id')->where('status', 1)->orderBy("name->{$currentLang}", 'asc')->get();
+        if (is_string($levelId) && $levelId !== '') {
+            if (ctype_digit($levelId)) {
+                $schoolQuery->where('parent_language_id', $levelId);
+            } else {
+                $matchingLevels = $levels->filter(function ($level) use ($currentLang, $levelId) {
+                    return trim(data_get($level, "name.$currentLang") ?: data_get($level, 'name.az') ?: '') === $levelId;
+                });
+
+                $schoolQuery->whereIn('parent_language_id', $matchingLevels->modelKeys());
+            }
         }
 
         $schools = $schoolQuery->orderByDesc('id')->paginate(12)->withQueryString();
@@ -388,7 +408,6 @@ class HomeController extends Controller
         $schoolCategories = SchoolCategory::where('status', 1)->orderBy('order_by', 'asc')->get();
         $countries = Country::where('status', 1)->orderBy("name->{$currentLang}", 'asc')->get();
         $mainLanguages = Language::whereNull('parent_id')->where('status', 1)->orderBy("name->{$currentLang}", 'asc')->get();
-        $levels = Language::whereNotNull('parent_id')->where('status', 1)->orderBy("name->{$currentLang}", 'asc')->get();
 
         return view('site.schools', compact(
             'currentLang',

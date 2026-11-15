@@ -5,8 +5,8 @@
     $siteText = data_get($setting, "text.$currentLang") ?? data_get($setting, 'text.az');
     $siteAddress = data_get($setting, "address.$currentLang") ?? data_get($setting, 'address.az');
     $aboutTitle = data_get($aboutPage, "title.$currentLang") ?? data_get($aboutPage, 'title.az') ?? __('site.about_us');
-    $aboutSubTitle = data_get($aboutPage, "sub_title.$currentLang") ?? data_get($aboutPage, 'sub_title.az');
-    $aboutText = data_get($aboutPage, "text.$currentLang") ?? data_get($aboutPage, 'text.az');
+    $aboutSubTitle = data_get($aboutPage, "sub_title.$currentLang");
+    $aboutText = data_get($aboutPage, "text.$currentLang") ?: __('site.about_full_text');
     $aboutIntro = $aboutText ? \Illuminate\Support\Str::words(strip_tags($aboutText), 40, '...') : null;
     $aboutImage = !empty($aboutPage->image) ? asset('uploads/about/' . $aboutPage->image) : asset('site/assets/img/custom-img-1.png');
     $promoLines = array_filter([
@@ -95,7 +95,7 @@
                         </div>
                         <div class="trips_detail">
                             <h5 class="text-light lh-base mb-0">22+ @lang('site.teacher')</h5>
-                            <p class="text-light opacity-75 lh-base m-0">Müəllim heyəti</p>
+                            <p class="text-light opacity-75 lh-base m-0">@lang('site.stats_teachers')</p>
                         </div>
                     </div>
                 </div>
@@ -106,7 +106,7 @@
                         </div>
                         <div class="trips_detail">
                             <h5 class="text-light lh-base mb-0">6000+ @lang('site.study_abroads')</h5>
-                            <p class="text-light opacity-75 lh-base m-0">Xaricdə təhsil qəbulu</p>
+                            <p class="text-light opacity-75 lh-base m-0">@lang('site.stats_admissions')</p>
                         </div>
                     </div>
                 </div>
@@ -117,7 +117,7 @@
                         </div>
                         <div class="trips_detail">
                             <h5 class="text-light lh-base mb-0">8000+ @lang('site.language_courses')</h5>
-                            <p class="text-light opacity-75 lh-base m-0">Dil kursu Məzunu</p>
+                            <p class="text-light opacity-75 lh-base m-0">@lang('site.stats_graduates')</p>
                         </div>
                     </div>
                 </div>
@@ -128,7 +128,7 @@
                         </div>
                         <div class="trips_detail">
                             <h5 class="text-light lh-base mb-0">80+ @lang('site.university')</h5>
-                            <p class="text-light opacity-75 lh-base m-0">Tərəfdaş Universitet</p>
+                            <p class="text-light opacity-75 lh-base m-0">@lang('site.stats_partners')</p>
                         </div>
                     </div>
                 </div>
@@ -189,6 +189,7 @@
         </div>
     </section>
 
+    @if($faqs->isNotEmpty())
     <section class="py-5">
         <div class="container">
             <div class="row align-items-center justify-content-center gx-xl-5 gx-lg-5 g-4">
@@ -231,6 +232,7 @@
             </div>
         </div>
     </section>
+    @endif
 
     <section class="bg-light py-5 home-featured-courses-section">
         <div class="container">
@@ -311,20 +313,20 @@
                             @php
                                 $newsTitle = data_get($item, "title.$currentLang") ?? data_get($item, 'title.az');
                                 $newsText = data_get($item, "text.$currentLang") ?? data_get($item, 'text.az');
-                                $newsSlug = data_get($item, "slug.$currentLang") ?? data_get($item, 'slug.az');
-                                $categorySlug = data_get($item, "category.slug.$currentLang") ?? data_get($item, 'category.slug.az');
+                                $newsSlug = data_get($item, "slug.$currentLang") ?: data_get($item, 'slug.az');
+                                $categorySlug = data_get($item, "category.slug.$currentLang") ?: data_get($item, 'category.slug.az');
                             @endphp
                             <div class="singles_items">
                                 <div class="education_block_grid border">
                                     <div class="education-thumb position-relative">
-                                        <a href="{{ route('site.blogDetail', [$categorySlug, $newsSlug]) }}">
+                                        <a href="{{ route('site.blogDetail', [$categorySlug ?: 'news', $newsSlug ?: 'result', $item->id]) }}">
                                             <img src="{{ !empty($item->image) ? asset('uploads/news/' . $item->image) : asset('site/assets/img/co-1.jpg') }}" class="img-fluid home-slide-image" alt="{{ $newsTitle }}" onerror="this.onerror=null;this.src='{{ asset('site/assets/img/co-1.jpg') }}';">
                                         </a>
                                     </div>
                                     <div class="education-body p-3">
                                         <div class="education-title">
                                             <h4 class="fs-6 fw-medium">
-                                                <a href="{{ route('site.blogDetail', [$categorySlug, $newsSlug]) }}">{{ $newsTitle }}</a>
+                                                <a href="{{ route('site.blogDetail', [$categorySlug ?: 'news', $newsSlug ?: 'result', $item->id]) }}">{{ $newsTitle }}</a>
                                             </h4>
                                         </div>
                                         @if($newsText)
@@ -332,7 +334,7 @@
                                         @endif
                                     </div>
                                     <div class="education-footer p-3">
-                                        <a href="{{ route('site.blogDetail', [$categorySlug, $newsSlug]) }}" class="main-link fw-medium">@lang('site.read_more')<i class="bi bi-arrow-right ms-2"></i></a>
+                                        <a href="{{ route('site.blogDetail', [$categorySlug ?: 'news', $newsSlug ?: 'result', $item->id]) }}" class="main-link fw-medium">@lang('site.read_more')<i class="bi bi-arrow-right ms-2"></i></a>
                                     </div>
                                 </div>
                             </div>

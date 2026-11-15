@@ -21,14 +21,27 @@
     {{ implode(', ', array_filter([$newsTitle, $categoryTitle, __('site.blogs')])) }}
 @endsection
 
+@section('site.css')
+    <style>
+        .news-detail-media::before { display: none; }
+        .news-detail-media .thumb img {
+            display: block;
+            width: 100%;
+            height: clamp(240px, 45vw, 420px);
+            object-fit: contain;
+            background: #f3f5f8;
+        }
+    </style>
+@endsection
+
 @section('site.content')
     <div class="ed_detail_head">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-4 col-md-5">
-                    <div class="courses-video">
+                    <div class="news-detail-media">
                         <div class="thumb">
-                            <img class="pro_img img-fluid w100" src="{{ !empty($news->image) ? asset('uploads/news/'.$news->image) : asset('site/assets/img/co-5.jpg') }}" alt="{{ $newsTitle }}">
+                            <img class="img-fluid rounded-3" src="{{ !empty($news->image) ? asset('uploads/news/'.$news->image) : asset('site/assets/img/co-5.jpg') }}" alt="{{ $newsTitle }}">
                         </div>
                     </div>
                 </div>
@@ -40,7 +53,7 @@
                             @endif
                         </div>
                         <div class="ed_header_caption">
-                            <h2 class="ed_title">{{ $newsTitle }}</h2>
+                            <h1 class="ed_title">{{ $newsTitle }}</h1>
                         </div>
                         <div class="ed_header_short">
                             @if($newsText)
@@ -83,17 +96,17 @@
                     @foreach($relatedNews as $item)
                         @php
                             $itemTitle = data_get($item, "title.$currentLang") ?? data_get($item, 'title.az');
-                            $itemCategorySlug = data_get($item, "category.slug.$currentLang") ?? data_get($item, 'category.slug.az');
-                            $itemSlug = data_get($item, "slug.$currentLang") ?? data_get($item, 'slug.az');
+                            $itemCategorySlug = data_get($item, "category.slug.$currentLang") ?: data_get($item, 'category.slug.az');
+                            $itemSlug = data_get($item, "slug.$currentLang") ?: data_get($item, 'slug.az');
                         @endphp
                         <div class="col-lg-4 col-md-6">
                             <div class="card mb-4 shadow-sm card-lift">
-                                <a href="{{ route('site.blogDetail', [$itemCategorySlug, $itemSlug]) }}">
+                                <a href="{{ route('site.blogDetail', [$itemCategorySlug ?: 'news', $itemSlug ?: 'result', $item->id]) }}">
                                     <img src="{{ !empty($item->image) ? asset('uploads/news/'.$item->image) : asset('site/assets/img/co-1.jpg') }}" class="img-fluid" alt="{{ $itemTitle }}">
                                 </a>
                                 <div class="card-body">
                                     <h4 class="grid-blog-heading lh-base">
-                                        <a href="{{ route('site.blogDetail', [$itemCategorySlug, $itemSlug]) }}" class="text-inherit">{{ $itemTitle }}</a>
+                                        <a href="{{ route('site.blogDetail', [$itemCategorySlug ?: 'news', $itemSlug ?: 'result', $item->id]) }}" class="text-inherit">{{ $itemTitle }}</a>
                                     </h4>
                                 </div>
                             </div>

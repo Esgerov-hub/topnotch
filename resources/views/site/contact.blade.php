@@ -54,7 +54,7 @@
                                     <div class="text-danger small js-field-error" data-field="name"></div>
                                 </div>
                                 <div class="col-lg-6 col-md-12">
-                                    <label class="form-label">Soyad</label>
+                                    <label class="form-label">@lang('site.surname')</label>
                                     <input type="text" name="surname" class="form-control" value="{{ old('surname') }}">
                                     <div class="text-danger small js-field-error" data-field="surname"></div>
                                 </div>
@@ -107,7 +107,7 @@
                                         </div>
                                         <div class="caps-content">
                                             <h5 class="cn-info-title mb-0">@lang('site.email')</h5>
-                                            <p class="text-muted lh-base">{{ $email }}</p>
+                                            <p class="text-muted lh-base"><a href="mailto:{{ $email }}">{{ $email }}</a></p>
                                         </div>
                                     </div>
                                 @endif
@@ -119,7 +119,7 @@
                                         </div>
                                         <div class="caps-content">
                                             <h5 class="cn-info-title mb-0">@lang('site.phone')</h5>
-                                            <p class="text-muted lh-base">{{ $phone }}</p>
+                                            <p class="text-muted lh-base"><a href="tel:{{ preg_replace('/[^+0-9]/', '', $phone) }}">{{ $phone }}</a></p>
                                         </div>
                                     </div>
                                 @endif

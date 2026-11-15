@@ -83,11 +83,11 @@
                                 </div>
 
                                 <div class="single-side-box card border shadow-sm rounded-3 p-3">
-                                    <label class="form-label fw-medium">@lang('site.course_level')</label>
+                                    <label class="form-label fw-medium" for="course-level">@lang('site.course_level')</label>
                                     <select class="form-select" name="level" id="course-level">
                                         <option value="">@lang('admin.choose')</option>
                                         @foreach($levels as $level)
-                                            @php $levelName = data_get($level, "name.$currentLang") ?? data_get($level, 'name.az'); @endphp
+                                            @php $levelName = trim(data_get($level, "name.$currentLang") ?: data_get($level, 'name.az') ?: ''); @endphp
                                             <option value="{{ $levelName }}" data-language-id="{{ $level->parent_id }}" @selected((string)($levelId ?? '') === (string)$level->id || (string)($levelId ?? '') === (string)$levelName)>{{ $levelName }}</option>
                                         @endforeach
                                     </select>

@@ -59,13 +59,13 @@
                             @php
                                 $newsTitle = data_get($item, "title.$currentLang") ?? data_get($item, 'title.az');
                                 $newsText = data_get($item, "text.$currentLang") ?? data_get($item, 'text.az');
-                                $categorySlug = data_get($item, "category.slug.$currentLang") ?? data_get($item, 'category.slug.az');
-                                $newsSlug = data_get($item, "slug.$currentLang") ?? data_get($item, 'slug.az');
+                                $categorySlug = data_get($item, "category.slug.$currentLang") ?: data_get($item, 'category.slug.az');
+                                $newsSlug = data_get($item, "slug.$currentLang") ?: data_get($item, 'slug.az');
                                 $categoryTitle = data_get($item, "category.title.$currentLang") ?? data_get($item, 'category.title.az');
                             @endphp
                             <div class="col-lg-4 col-md-6 col-sm-6">
                                 <div class="card mb-4 shadow-sm card-lift">
-                                    <a href="{{ route('site.blogDetail', [$categorySlug, $newsSlug]) }}">
+                                    <a href="{{ route('site.blogDetail', [$categorySlug ?: 'news', $newsSlug ?: 'result', $item->id]) }}">
                                         <img src="{{ !empty($item->image) ? asset('uploads/news/'.$item->image) : asset('site/assets/img/co-1.jpg') }}" class="img-fluid" alt="{{ $newsTitle }}">
                                     </a>
                                     <div class="card-body">
@@ -75,13 +75,13 @@
                                             @endif
                                         </div>
                                         <h4 class="grid-blog-heading lh-base">
-                                            <a href="{{ route('site.blogDetail', [$categorySlug, $newsSlug]) }}" class="text-inherit">{{ $newsTitle }}</a>
+                                            <a href="{{ route('site.blogDetail', [$categorySlug ?: 'news', $newsSlug ?: 'result', $item->id]) }}" class="text-inherit">{{ $newsTitle }}</a>
                                         </h4>
                                         <p>{{ \Illuminate\Support\Str::limit(strip_tags($newsText ?? ''), 120) }}</p>
                                         <div class="row align-items-center g-0 mt-4">
                                             <div class="col ps-2">
                                                 <div class="education-footer p-3">
-                                                    <div class="enrolled-link"><a href="{{ route('site.blogDetail', [$categorySlug, $newsSlug]) }}" class="main-link fw-medium">@lang('site.read_more')<i class="bi bi-arrow-right ms-2"></i></a></div>
+                                                    <div class="enrolled-link"><a href="{{ route('site.blogDetail', [$categorySlug ?: 'news', $newsSlug ?: 'result', $item->id]) }}" class="main-link fw-medium">@lang('site.read_more')<i class="bi bi-arrow-right ms-2"></i></a></div>
                                                 </div>
                                             </div>
                                             <div class="col-auto">

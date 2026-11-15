@@ -56,7 +56,9 @@
                     @endforeach
                 </div>
             @else
-                <div class="alert alert-light border mb-0">@lang('site.no_data_found')</div>
+                <div class="alert alert-light border mb-0">
+                    <a class="alert-link" href="{{ route('site.contact') }}">@lang('site.faq_empty')</a>
+                </div>
             @endif
         </div>
     </section>

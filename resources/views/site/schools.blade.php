@@ -110,14 +110,14 @@
                                 </div>
 
                                 <div class="single-side-box card border shadow-sm rounded-3 p-3">
-                                    <label class="form-label fw-medium">@lang('admin.parent_languages')</label>
+                                    <label class="form-label fw-medium" for="school-level">@lang('site.course_level')</label>
                                     <select class="form-select" name="level" id="school-level">
                                         <option value="">@lang('admin.choose')</option>
                                         @foreach($levelOptions as $level)
                                             @php
-                                                $levelName = data_get($level, "name.$currentLang") ?? data_get($level, 'name.az');
+                                                $levelName = trim(data_get($level, "name.$currentLang") ?: data_get($level, 'name.az') ?: '');
                                             @endphp
-                                            <option value="{{ $level->id }}" data-language-id="{{ $level->parent_id }}" @selected((string)($levelId ?? '') === (string)$level->id)>
+                                            <option value="{{ $levelName }}" data-language-id="{{ $level->parent_id }}" @selected((string)($levelId ?? '') === (string)$level->id || (string)($levelId ?? '') === $levelName)>
                                                 {{ $levelName }}
                                             </option>
                                         @endforeach
@@ -137,7 +137,7 @@
                     <div class="d-flex align-items-center justify-content-between mb-3">
                         <div>
                             <h2 class="h4 mb-1">@lang('site.schools')</h2>
-                            <div class="text-muted small">{{ $schools->total() }} @lang('site.student')</div>
+                            <div class="text-muted small">@choice('site.school_count', $schools->total())</div>
                         </div>
                     </div>
 
@@ -212,7 +212,10 @@
                             </div>
                         @empty
                             <div class="col-12">
-                                <div class="alert alert-light border mb-0">@lang('site.no_data_found')</div>
+                                <div class="alert alert-light border mb-0">
+                                    @lang('site.school_empty')
+                                    <a class="alert-link" href="{{ route('site.contact') }}">@lang('site.contact_us')</a>
+                                </div>
                             </div>
                         @endforelse
                     </div>
@@ -258,7 +261,9 @@
                 emptyOption.textContent = @json(__('admin.choose'));
                 levelSelect.appendChild(emptyOption);
 
-                filtered.forEach(item => {
+                const uniqueFiltered = [...new Map(filtered.map(item => [item.value, item])).values()];
+
+                uniqueFiltered.forEach(item => {
                     const option = document.createElement('option');
                     option.value = item.value;
                     option.textContent = item.label;
@@ -266,7 +271,7 @@
                     levelSelect.appendChild(option);
                 });
 
-                if (!filtered.some(item => item.value === selectedLevel)) {
+                if (!uniqueFiltered.some(item => item.value === selectedLevel)) {
                     levelSelect.value = '';
                 }
             }

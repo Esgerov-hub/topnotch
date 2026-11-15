@@ -40,17 +40,17 @@
                             @if(!empty($sitePhone))
                                 <div class="d-flex align-items-center call-now gap-2 mb-3">
                                     <div class="square--30 circle bg-light-main text-main"><i class="bi bi-telephone"></i></div>
-                                    <div class="fs-6 fw-semibold">{{ $sitePhone }}</div>
+                                    <a class="fs-6 fw-semibold text-reset" href="tel:{{ preg_replace('/[^+0-9]/', '', $sitePhone) }}">{{ $sitePhone }}</a>
                                 </div>
                                 <div class="d-flex align-items-center call-now gap-2 mb-3">
                                     <div class="square--30 circle bg-light-main text-main"><i class="bi bi-telephone"></i></div>
-                                    <div class="fs-6 fw-semibold">+994 50 540 92 93</div>
+                                    <a class="fs-6 fw-semibold text-reset" href="tel:+994505409293">+994 50 540 92 93</a>
                                 </div>
                             @endif
                             @if(!empty($siteEmail))
                                 <div class="d-flex align-items-center call-now gap-2">
                                     <div class="square--30 circle bg-light-main text-main"><i class="bi bi-envelope"></i></div>
-                                    <div class="fs-6 fw-semibold">{{ $siteEmail }}</div>
+                                    <a class="fs-6 fw-semibold text-reset" href="mailto:{{ $siteEmail }}">{{ $siteEmail }}</a>
                                 </div>
                             @endif
                         </div>
@@ -90,10 +90,12 @@
                 </div>
                 <div class="col-lg-6 col-md-6 text-md-end">
                     <ul class="footer-bottom-social">
-                        <li><a href="#"><i class="bi bi-facebook"></i></a></li>
-                        <li><a href="#"><i class="bi bi-twitter"></i></a></li>
-                        <li><a href="#"><i class="bi bi-instagram"></i></a></li>
-                        <li><a href="#"><i class="bi bi-linkedin"></i></a></li>
+                        @foreach(['instagram' => 'Instagram', 'linkedin' => 'LinkedIn', 'twitter' => 'X', 'youtube' => 'YouTube', 'telegram' => 'Telegram', 'whatsapp' => 'WhatsApp'] as $icon => $label)
+                            @php $url = trim(data_get($setting, $icon) ?? ''); @endphp
+                            @if(filter_var($url, FILTER_VALIDATE_URL) && in_array(parse_url($url, PHP_URL_SCHEME), ['http', 'https'], true))
+                                <li><a href="{{ $url }}" aria-label="{{ $label }}"><i class="bi bi-{{ $icon }}" aria-hidden="true"></i></a></li>
+                            @endif
+                        @endforeach
                     </ul>
                 </div>
             </div>

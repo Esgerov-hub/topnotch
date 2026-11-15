@@ -29,7 +29,7 @@ try {
         Route::get('/courses', 'HomeController@courses')->name('courses');
         Route::get('/courses-details/{courseSlug?}/{courseId?}', 'HomeController@coursesDetails')->name('courses-details');
         Route::get('/blogs', 'HomeController@blogs')->name('blogs');
-        Route::get('/blog-detail/{categorySlug?}/{newsSlug?}', 'HomeController@blogDetail')->name('blogDetail');
+        Route::get('/blog-detail/{categorySlug?}/{newsSlug?}/{newsId?}', 'HomeController@blogDetail')->name('blogDetail');
         Route::get('/contact', 'HomeController@contact')->name('contact');
         Route::get('/404', 'HomeController@notPage')->name('404');
         Route::get('/signup', 'HomeController@signup')->name('signup');
