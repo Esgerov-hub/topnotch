@@ -267,9 +267,11 @@
                                             @if($courseCategory)
                                                 <span class="badge bg-light-primary text-primary rounded-pill">{{ $courseCategory }}</span>
                                             @endif
+                                            {{--
                                             @if($course->teacher)
                                                 <span class="badge bg-light text-dark rounded-pill">{{ data_get($course, "teacher.name.$currentLang") ?? data_get($course, 'teacher.name.az') }}</span>
                                             @endif
+                                            --}}
                                         </div>
                                         <div class="education-title">
                                             <h4 class="fs-6 fw-medium">
